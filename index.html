@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인천영종국제도시 디에트르 라 메르Ⅰ 옵션 선택 계산기</title>
+<style>
+:root{
+  --navy:#0f2a4a;
+  --blue:#1a56a8;
+  --blue-light:#eaf2fc;
+  --accent:#d64545;
+  --accent-light:#fdecec;
+  --gold:#b8860b;
+  --gray-50:#f7f8fa;
+  --gray-100:#eef1f5;
+  --gray-200:#e2e6ec;
+  --gray-400:#9aa5b1;
+  --gray-600:#5c6773;
+  --gray-800:#2b3440;
+  --green:#1a8a53;
+  --radius:10px;
+  --shadow:0 2px 10px rgba(15,42,74,.08);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Malgun Gothic","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--gray-50);
+  color:var(--gray-800);
+  line-height:1.5;
+  padding-bottom:60px;
+}
+header.topbar{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:#fff;
+  padding:18px 20px;
+  position:sticky;top:0;z-index:50;
+  box-shadow:var(--shadow);
+}
+header.topbar h1{
+  margin:0 0 4px;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:-0.3px;
+}
+header.topbar p{
+  margin:0;
+  font-size:12px;
+  opacity:.85;
+}
+.type-tabs{
+  display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;
+}
+.type-tabs button{
+  border:1.5px solid rgba(255,255,255,.5);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.15s;
+  white-space:nowrap;
+}
+.type-tabs button.active{
+  background:#fff;color:var(--navy);border-color:#fff;
+}
+.type-tabs button.pre{
+  border-style:dashed;
+}
+.customer-bar{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;
+}
+.customer-bar .field{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:8px;padding:5px 10px;
+}
+.customer-bar label{font-size:12px;opacity:.9;white-space:nowrap;}
+.customer-bar input{
+  background:transparent;border:none;color:#fff;font-size:13px;
+  width:90px;outline:none;
+}
+.customer-bar input::placeholder{color:rgba(255,255,255,.6);}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:20px;
+  max-width:1400px;
+  margin:20px auto;
+  padding:0 20px;
+  align-items:start;
+}
+@media(max-width:980px){
+  .layout{grid-template-columns:1fr;}
+  aside.summary{position:relative!important;top:0!important;order:-1;max-height:none!important;overflow-y:visible!important;}
+}
+
+#errorBanner{
+  display:none;
+  background:var(--accent-light);
+  border:1.5px solid var(--accent);
+  color:#8a1f1f;
+  border-radius:var(--radius);
+  padding:14px 16px;
+  margin-bottom:16px;
+  font-size:13.5px;
+}
+#errorBanner.show{display:block;}
+#errorBanner h3{margin:0 0 8px;font-size:14.5px;color:var(--accent);}
+#errorBanner ul{margin:0;padding-left:18px;}
+#errorBanner li{margin:3px 0;cursor:pointer;text-decoration:underline;}
+
+.category{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+  overflow:hidden;
+  border:1px solid var(--gray-200);
+}
+.category > .cat-head{
+  background:var(--navy);
+  color:#fff;
+  padding:12px 18px;
+  font-size:15.5px;
+  font-weight:700;
+  letter-spacing:.2px;
+  display:flex;align-items:center;gap:8px;
+}
+.category > .cat-body{padding:14px 18px 18px;}
+
+.group{
+  border:1px solid var(--gray-200);
+  border-radius:var(--radius);
+  margin-bottom:14px;
+  overflow:hidden;
+  transition:.15s;
+}
+.group:last-child{margin-bottom:0;}
+.group.invalid{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-light);
+}
+.group-head{
+  background:var(--blue-light);
+  padding:10px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:6px;
+}
+.group-head .gt{
+  font-size:14px;font-weight:700;color:var(--navy);
+}
+.group-head .gt small{
+  display:block;font-weight:500;font-size:11.5px;color:var(--gray-600);margin-top:2px;
+}
+.badge-req{
+  font-size:10.5px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;
+}
+.badge-ok{
+  font-size:10.5px;background:var(--green);color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;
+}
+.badge-opt{
+  font-size:10.5px;background:var(--gray-400);color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;
+}
+.group-note{
+  background:#fff8e6;color:#8a6116;font-size:11.5px;padding:7px 14px;border-bottom:1px dashed #e8cf8e;
+}
+.items{padding:8px;}
+.opt{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:.12s;
+}
+.opt:hover{background:var(--gray-100);}
+.opt.selected{
+  background:var(--blue-light);
+  border-color:var(--blue);
+}
+.opt.opt-disabled{
+  opacity:.42;cursor:not-allowed;
+}
+.opt.opt-disabled:hover{background:none;}
+.opt input[type=radio]{
+  width:18px;height:18px;accent-color:var(--blue);flex:none;cursor:inherit;
+}
+.opt .opt-label{flex:1;font-size:13.5px;color:var(--gray-800);}
+.opt .opt-label b{font-weight:700;}
+.opt .opt-reason{display:block;font-size:11px;color:var(--accent);margin-top:2px;}
+.opt .opt-price{
+  text-align:right;min-width:132px;font-size:12.5px;color:var(--gray-600);
+}
+.opt .opt-price .tot{font-weight:700;color:var(--gray-800);font-size:13.5px;}
+.opt .opt-price .orig{text-decoration:line-through;color:var(--gray-400);margin-right:5px;}
+.opt .opt-price .promo{color:var(--accent);font-weight:700;}
+.opt .opt-price .dep{display:block;color:var(--blue);margin-top:1px;}
+.opt-clear{
+  display:block;font-size:11.5px;color:var(--blue);text-decoration:underline;cursor:pointer;padding:4px 10px 8px;
+}
+.subhead{
+  font-size:11.5px;font-weight:700;color:#fff;background:var(--gray-600);
+  padding:4px 10px;border-radius:6px;margin:10px 4px 4px;display:inline-block;
+}
+
+aside.summary{
+  position:sticky;top:150px;
+  background:#fff;border-radius:14px;box-shadow:var(--shadow);
+  border:1px solid var(--gray-200);
+  padding:16px 16px 18px;
+  max-height:calc(100vh - 170px);
+  overflow-y:auto;
+}
+aside.summary h2{
+  margin:0 0 12px;font-size:15px;color:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.price-inputs{display:grid;gap:8px;margin-bottom:14px;}
+.price-inputs label{font-size:11.5px;color:var(--gray-600);font-weight:700;}
+.price-inputs .row{display:flex;gap:8px;}
+.price-inputs input{
+  width:100%;padding:8px 9px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;
+}
+.sum-table{width:100%;border-collapse:collapse;font-size:12.8px;margin-bottom:10px;}
+.sum-table td{padding:6px 2px;border-bottom:1px dashed var(--gray-200);}
+.sum-table td.v{text-align:right;font-variant-numeric:tabular-nums;}
+.sum-table tr.total td{border-top:2px solid var(--navy);border-bottom:none;font-weight:800;font-size:15px;color:var(--navy);padding-top:10px;}
+.sum-table tr.total2 td{font-weight:800;color:var(--accent);font-size:14px;}
+.penalty-box{
+  border:1.5px dashed var(--gold);background:#fffaf0;border-radius:10px;padding:10px 12px;margin-bottom:14px;
+}
+.penalty-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;font-weight:700;color:#8a6116;}
+.penalty-toggle input{width:16px;height:16px;accent-color:var(--gold);}
+#penaltyBody{margin-top:10px;}
+.edit-switch{display:flex;gap:6px;margin-bottom:8px;}
+.edit-switch button.small{flex:1;padding:7px 6px;font-size:11.5px;border-radius:8px;background:#fff;color:var(--gray-600);border:1.5px solid var(--gray-200)!important;}
+.edit-switch button.small.active{background:var(--navy);color:#fff;border-color:var(--navy)!important;}
+#penaltyTable tr.penalty-row td{font-weight:800;color:#c0392b;font-size:13.5px;border-top:1.5px solid var(--gold);}
+#penaltyTable tr.penalty-none td{color:var(--green);font-weight:700;}
+#penaltyTable .note{font-size:10.5px;color:#8a6116;padding-top:4px;}
+#editModeBar{display:none;}
+#editModeBar.show{
+  display:block;background:#fffaf0;border:1.5px solid var(--gold);color:#8a6116;
+  border-radius:10px;padding:10px 14px;font-size:12.5px;font-weight:700;margin-bottom:16px;
+}
+
+.selected-list{
+  max-height:230px;overflow-y:auto;
+  border:1px solid var(--gray-200);border-radius:8px;
+  margin-bottom:14px;
+}
+.selected-list .si{
+  display:flex;justify-content:space-between;gap:8px;
+  padding:7px 10px;font-size:11.8px;border-bottom:1px solid var(--gray-100);
+}
+.selected-list .si:last-child{border-bottom:none;}
+.selected-list .si .n{color:var(--gray-600);}
+.selected-list .si .p{white-space:nowrap;font-weight:700;color:var(--gray-800);}
+.selected-list .empty{padding:16px;text-align:center;color:var(--gray-400);font-size:12px;}
+
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.btn-row .full{grid-column:1/-1;}
+button.act{
+  border:none;border-radius:9px;padding:11px 10px;font-size:13.5px;font-weight:700;cursor:pointer;transition:.12s;
+}
+button.act:active{transform:scale(.97);}
+.btn-check{background:var(--navy);color:#fff;}
+.btn-print{background:var(--blue);color:#fff;}
+.btn-reset{background:#fff;color:var(--accent);border:1.5px solid var(--accent)!important;}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#2b3440;color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:999;opacity:0;pointer-events:none;transition:.25s;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+.quicknav{
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;
+}
+.quicknav a{
+  font-size:12px;color:var(--blue);background:var(--blue-light);
+  padding:6px 12px;border-radius:999px;text-decoration:none;font-weight:700;
+}
+
+#printArea{display:none;}
+/* ---- 인쇄용 스타일: 원본 '계약신청서' 옵션표 양식을 재현 ---- */
+#printArea, #printArea *{
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact;
+}
+#printArea{
+  font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+#printArea .doc-head{
+  border:2px solid #0f2a4a;border-radius:4px;padding:14px 96px 14px 18px;margin-bottom:14px;position:relative;
+}
+#printArea .doc-head h1{
+  text-align:center;font-size:17px;margin:0 0 10px;color:#0f2a4a;letter-spacing:-0.3px;
+}
+#printArea .tableno{
+  position:absolute;top:12px;right:14px;border:1.5px solid #0f2a4a;border-radius:4px;
+  font-size:10px;text-align:center;width:66px;
+}
+#printArea .tableno div:first-child{background:#0f2a4a;color:#fff;padding:2px 0;font-weight:700;}
+#printArea .tableno div:last-child{padding:10px 0;font-weight:700;font-size:13px;}
+#printArea .infogrid{
+  width:100%;border-collapse:collapse;font-size:11.5px;margin-top:4px;
+}
+#printArea .infogrid td{border:1px solid #b9c2d0;padding:6px 9px;}
+#printArea .infogrid td.k{background:#eef1f7;font-weight:700;width:100px;color:#333;}
+#printArea .infogrid td.v{min-width:120px;}
+#printArea .unit-note{font-size:10px;color:#666;text-align:right;margin:10px 0 3px;}
+#printArea .sectitle{
+  font-size:13px;font-weight:800;color:#0f2a4a;margin:16px 0 4px;padding-bottom:3px;
+  border-bottom:2px solid #0f2a4a;
+}
+#printArea table.opttbl{
+  width:100%;border-collapse:collapse;font-size:10px;margin-bottom:4px;table-layout:fixed;
+}
+#printArea table.opttbl col.c1{width:9%;}
+#printArea table.opttbl col.c2{width:11%;}
+#printArea table.opttbl col.c3{width:39%;}
+#printArea table.opttbl col.c4{width:6%;}
+#printArea table.opttbl col.c5{width:11%;}
+#printArea table.opttbl col.c6{width:11%;}
+#printArea table.opttbl col.c7{width:6.5%;}
+#printArea table.opttbl col.c8{width:6.5%;}
+#printArea table.opttbl th,#printArea table.opttbl td{
+  border:1px solid #8b93a3;padding:3.5px 5px;text-align:left;vertical-align:middle;word-break:keep-all;
+}
+#printArea table.opttbl thead th{
+  background:#f3d9e6;color:#3a2030;font-weight:700;text-align:center;font-size:10px;
+}
+#printArea table.opttbl thead th.dep{background:#fff176;}
+#printArea table.opttbl td.ctr{text-align:center;}
+#printArea table.opttbl td.r{text-align:right;font-variant-numeric:tabular-nums;}
+#printArea table.opttbl tr.row-free td{background:#ffffff;}
+#printArea table.opttbl tr.row-paid td{background:#dbeeff;}
+#printArea table.opttbl tr.row-promo td{background:#fff9c4;}
+#printArea table.opttbl tr.row-sel td{
+  outline:2px solid #1a8a53;outline-offset:-2px;
+  font-weight:700;
+}
+#printArea table.opttbl tr.row-sel td.name::before{
+  content:"✔ 선택  ";color:#1a8a53;font-weight:800;
+}
+#printArea table.opttbl td.orig{text-decoration:line-through;color:#999;font-size:9px;}
+#printArea table.opttbl td.promo-tag{color:#c0392b;font-weight:700;}
+#printArea .legend{display:flex;gap:14px;font-size:9.5px;color:#444;margin:2px 0 8px;}
+#printArea .legend span{display:inline-flex;align-items:center;gap:4px;}
+#printArea .legend i{width:11px;height:11px;display:inline-block;border:1px solid #999;}
+#printArea .totals-wrap{margin-top:18px;}
+#printArea table.totals{width:60%;min-width:360px;border-collapse:collapse;font-size:12px;margin-left:auto;}
+#printArea table.totals td{border:1px solid #8b93a3;padding:7px 10px;}
+#printArea table.totals td.k{background:#eef1f7;font-weight:700;}
+#printArea table.totals td.r{text-align:right;font-variant-numeric:tabular-nums;}
+#printArea table.totals tr.grand td{background:#0f2a4a;color:#fff;font-weight:800;font-size:13.5px;border-top:2.5px solid #0f2a4a;border-bottom:2.5px solid #0f2a4a;}
+#printArea .sign{display:flex;justify-content:space-between;margin-top:34px;font-size:12.5px;padding:0 4px;}
+#printArea .sign div{border-bottom:1px solid #333;padding-bottom:22px;min-width:220px;}
+#printArea .foot-note{font-size:9px;color:#888;margin-top:16px;border-top:1px dashed #ccc;padding-top:6px;}
+@media print{
+  header.topbar,aside.summary,.quicknav,#errorBanner,.btn-row,.customer-bar,.type-tabs,footer.note,#editModeBar{display:none!important;}
+  body{padding:0;background:#fff;}
+  .layout{display:block;padding:0;margin:0;max-width:100%;}
+  .category{display:none!important;}
+  #printArea{display:block!important;padding:14px 18px;}
+  #printArea table.opttbl{page-break-inside:auto;}
+  #printArea table.opttbl tr{page-break-inside:avoid;}
+  #printArea .sectitle{page-break-after:avoid;}
+  @page{size:A4;margin:12mm;}
+}
+footer.note{
+  max-width:1400px;margin:0 auto;padding:0 20px 40px;font-size:11.5px;color:var(--gray-400);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <h1>인천영종국제도시 디에트르 라 메르Ⅰ(RC4-1,2BL) — 옵션 선택 계산기</h1>
+  <p>주택형을 선택하고 옵션을 고르면 계약금·총 공급금액이 자동으로 계산됩니다. (단위: 원, VAT 포함)</p>
+  <div class="type-tabs" id="typeTabs"></div>
+  <div class="customer-bar">
+    <div class="field"><label>성명</label><input id="custName" placeholder="계약자 성명"></div>
+    <div class="field"><label>동</label><input id="custDong" style="width:60px" placeholder="동"></div>
+    <div class="field"><label>호</label><input id="custHo" style="width:60px" placeholder="호"></div>
+    <div class="field"><label>테이블번호</label><input id="custTable" style="width:60px" placeholder="No."></div>
+  </div>
+</header>
+
+<div class="layout">
+  <main>
+    <div id="editModeBar"></div>
+    <div id="errorBanner"></div>
+    <div class="quicknav" id="quickNav"></div>
+    <div id="groupsRoot"></div>
+  </main>
+
+  <aside class="summary">
+    <h2 id="summaryTitle">실시간 계약 요약</h2>
+    <div class="price-inputs">
+      <div>
+        <label>총 분양가 (원)</label>
+        <input id="salePrice" type="text" inputmode="numeric" placeholder="예: 350,000,000">
+      </div>
+      <div class="row">
+        <div style="flex:1">
+          <label>계약금(1차) 비율 (%)</label>
+          <input id="depositPct" type="text" inputmode="decimal" placeholder="예: 5">
+        </div>
+      </div>
+      <div style="font-size:10.5px;color:var(--gray-400);">※ 총 분양가·계약금 비율은 실제 계약서(공급계약서 조항) 기준으로 입력하세요.</div>
+    </div>
+
+    <div class="penalty-box">
+      <label class="penalty-toggle">
+        <input type="checkbox" id="penaltyEnable">
+        <span>옵션 변경 위약금 계산 사용</span>
+      </label>
+      <div id="penaltyBody" style="display:none;">
+        <div class="edit-switch">
+          <button class="act small" id="btnEditAfter">변경 후(현재) 입력</button>
+          <button class="act small" id="btnEditBefore">변경 전(원래) 입력</button>
+        </div>
+        <table class="sum-table" id="penaltyTable"></table>
+      </div>
+    </div>
+
+    <table class="sum-table" id="sumTable"></table>
+
+    <div style="font-size:12px;font-weight:700;color:var(--navy);margin:12px 0 6px;">선택 내역</div>
+    <div class="selected-list" id="selectedList"></div>
+
+    <div class="btn-row">
+      <button class="act btn-check full" id="btnCheck">✓ 필수 선택 확인</button>
+      <button class="act btn-print" id="btnPrint">🖨 인쇄하기</button>
+      <button class="act btn-reset" id="btnReset">⟲ 처음부터 다시</button>
+    </div>
+  </aside>
+</div>
+
+<footer class="note">
+  ※ 본 계산기는 &#39;★대방건설_인천영종1차_구비서류_최종&#39; 계약신청서(p.1~36) 내용을 기반으로 제작된 현장 보조 도구이며, 실제 계약 시 금액 및 조건부 선택 항목은 반드시 원본 계약신청서와 대조하여 확인하시기 바랍니다. 프로모션(&#39;무상(한시적)&#39;) 항목은 사업 진행 상황에 따라 변경될 수 있습니다.
+</footer>
+
+<div id="printArea"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   아이템/그룹 생성 헬퍼 (types_data.js 가 이 함수들을 사용해 TYPES 를 정의함)
+   -- types_data.js 보다 먼저 정의되어야 한다 --
+========================================================= */
+function I(id,label,price,deposit,opts){
+  opts=opts||{};
+  return Object.assign({id:id,label:label,price:price,deposit:deposit,orig:null}, opts);
+}
+// 프로모션(한시적 무상) 아이템: 정상가는 orig로 표시하고 실제 부담금은 0원
+function P(id,label,orig,opts){
+  opts=opts||{};
+  return Object.assign({id:id,label:label,price:0,deposit:0,orig:orig}, opts);
+}
+function G(id,section,sub,items,opts){
+  opts=opts||{};
+  return Object.assign({id:id,section:section,sub:sub,items:items,required:true}, opts);
+}
+</script>
+<script src="types_data.js"></script>
+<script>
+/* =========================================================
+   유틸
+========================================================= */
+function won(n){
+  if(n===null||n===undefined) return '';
+  return n.toLocaleString('ko-KR') + '원';
+}
+function el(tag, cls, html){
+  const e=document.createElement(tag);
+  if(cls) e.className=cls;
+  if(html!==undefined) e.innerHTML=html;
+  return e;
+}
+function parseNum(str){
+  if(!str) return 0;
+  const n = parseFloat(String(str).replace(/[^0-9.\-]/g,''));
+  return isNaN(n)?0:n;
+}
+function fmtInputNumber(input){
+  input.addEventListener('input', ()=>{
+    const raw = input.value.replace(/[^0-9]/g,'');
+    input.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
+    recompute();
+  });
+}
+
+let toastTimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* TYPES 는 types_data.js 에서 로드됨 (12개 타입: 84A/84B/104A/104B/113A/113B x 일반형/사전청약) */
+
+/* =========================================================
+   상태
+========================================================= */
+let currentTypeKey = TYPES[0].key;
+const state = {};        // 변경 후(현재/기본) 선택 상태
+const beforeState = {};  // 변경 전(원래 계약) 선택 상태 — 위약금 계산 사용 시에만 쓰임
+TYPES.forEach(function(t){
+  state[t.key] = {};
+  beforeState[t.key] = {};
+  t.groups.forEach(function(g){ state[t.key][g.id] = null; beforeState[t.key][g.id] = null; });
+});
+const custInfo = {name:'',dong:'',ho:'',table:''};
+
+/* 위약금 계산 모드 */
+let penaltyMode = false;
+let editingBefore = false; // false = 변경 후(현재) 입력 중, true = 변경 전(원래) 입력 중
+function activeSel(){
+  return (penaltyMode && editingBefore) ? beforeState[currentTypeKey] : state[currentTypeKey];
+}
+
+function getType(key){ return TYPES.find(function(t){return t.key===key;}); }
+function getGroup(typeKey,groupId){ return getType(typeKey).groups.find(function(g){return g.id===groupId;}); }
+function findItem(group,itemId){ return group.items.find(function(it){return it.id===itemId;}); }
+
+/* 아이템의 실효 가격 (현재 데이터셋엔 동적 무상 로직이 없지만, 확장을 위해 유지) */
+function effectivePrice(item, sel){
+  if(item.dynamicFreeIf && sel[item.dynamicFreeIf]===item.dynamicFreeVal){
+    return {price:0, deposit:0, dynamicFree:true};
+  }
+  return {price:item.price, deposit:item.deposit, dynamicFree:false};
+}
+
+/* =========================================================
+   렌더링
+========================================================= */
+function renderTabs(){
+  const wrap = document.getElementById('typeTabs');
+  wrap.innerHTML='';
+  TYPES.forEach(function(t){
+    const isPre = /사전청약/.test(t.name);
+    const b = el('button', isPre?'pre':'', t.name);
+    if(t.key===currentTypeKey) b.className += ' active';
+    b.addEventListener('click', function(){
+      currentTypeKey=t.key;
+      renderTabs();
+      renderGroups();
+      recompute();
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+    wrap.appendChild(b);
+  });
+}
+
+/* 카테고리(=section) 순서는 데이터에 등장하는 그룹 순서를 그대로 따른다 (타입마다 구조가 달라 고정 배열 대신 동적으로 계산) */
+function categoryOrder(typeKey){
+  const type = getType(typeKey);
+  const order = [];
+  type.groups.forEach(function(g){
+    if(order.indexOf(g.section)===-1) order.push(g.section);
+  });
+  return order;
+}
+
+function renderGroups(){
+  const root = document.getElementById('groupsRoot');
+  root.innerHTML='';
+  const type = getType(currentTypeKey);
+  const sel = activeSel();
+  const order = categoryOrder(currentTypeKey);
+  renderEditModeBar();
+
+  const byCat = {};
+  order.forEach(function(c){ byCat[c]=[]; });
+  type.groups.forEach(function(g){
+    if(!byCat[g.section]) byCat[g.section]=[];
+    byCat[g.section].push(g);
+  });
+
+  const nav = document.getElementById('quickNav');
+  nav.innerHTML='';
+
+  order.forEach(function(cat){
+    const groupsInCat = byCat[cat] || [];
+    if(groupsInCat.length===0) return;
+    const anyVisible = groupsInCat.some(function(g){ return !g.visibleIf || g.visibleIf(sel); });
+    if(!anyVisible) return;
+
+    const catId = 'cat_'+cat.replace(/[^a-zA-Z0-9가-힣]/g,'_');
+    const catEl = el('section','category');
+    catEl.id = catId;
+    const head = el('div','cat-head', cat);
+    catEl.appendChild(head);
+    const body = el('div','cat-body');
+
+    groupsInCat.forEach(function(g){
+      if(g.visibleIf && !g.visibleIf(sel)) return;
+      body.appendChild(renderGroup(type, g, sel));
+    });
+
+    catEl.appendChild(body);
+    root.appendChild(catEl);
+
+    const navLink = el('a','', cat);
+    navLink.href='#'+catId;
+    nav.appendChild(navLink);
+  });
+}
+
+function renderGroup(type, g, sel){
+  const wrap = el('div','group');
+  wrap.id = 'group_'+g.id;
+  const head = el('div','group-head');
+  const gt = el('div','gt', g.sub + '<small>'+g.section+' 항목 '+(g.required?'· 필수 선택(택1)':'· 선택사항')+'</small>');
+  head.appendChild(gt);
+  const chosen = sel[g.id];
+  const statusBadge = el('span', chosen ? 'badge-ok':(g.required?'badge-req':'badge-opt'), chosen ? '선택완료':(g.required?'미선택':'선택안함'));
+  head.appendChild(statusBadge);
+  wrap.appendChild(head);
+
+  if(g.note){
+    wrap.appendChild(el('div','group-note','※ '+g.note));
+  }
+
+  const itemsWrap = el('div','items');
+  let lastHeaderTag=null;
+  g.items.forEach(function(item){
+    if(item.headerTag && item.headerTag!==lastHeaderTag){
+      lastHeaderTag=item.headerTag;
+      itemsWrap.appendChild(el('div','subhead', item.headerTag));
+    }
+    const disabled = item.disabledIf ? item.disabledIf(sel) : false;
+    const isSelected = sel[g.id]===item.id;
+    const row = el('label','opt'+(isSelected?' selected':'')+(disabled?' opt-disabled':''));
+    const radio = document.createElement('input');
+    radio.type='radio';
+    radio.name = 'grp_'+g.id;
+    radio.value = item.id;
+    radio.checked = isSelected;
+    radio.disabled = !!disabled;
+    radio.addEventListener('change', function(){
+      sel[g.id]=item.id;
+      afterChange();
+    });
+    row.appendChild(radio);
+
+    const pricing = effectivePrice(item, sel);
+    const labelDiv = el('div','opt-label');
+    labelDiv.innerHTML = item.label;
+    if(disabled && item.reason){
+      labelDiv.innerHTML += '<span class="opt-reason">⚠ '+item.reason+'</span>';
+    }
+    row.appendChild(labelDiv);
+
+    const priceDiv = el('div','opt-price');
+    let priceHtml='';
+    if(item.orig){
+      priceHtml += '<span class="orig">'+won(item.orig)+'</span><span class="promo">무상(한시적)</span>';
+    } else if(pricing.dynamicFree){
+      priceHtml += '<span class="orig">'+won(item.price)+'</span><span class="promo">상위옵션 선택으로 무상</span>';
+    } else if(pricing.price===0){
+      priceHtml += '<span class="tot">포함(무상)</span>';
+    } else {
+      priceHtml += '<span class="tot">'+won(pricing.price)+'</span><span class="dep">계약금 '+won(pricing.deposit)+'</span>';
+    }
+    priceDiv.innerHTML = priceHtml;
+    row.appendChild(priceDiv);
+
+    itemsWrap.appendChild(row);
+  });
+  wrap.appendChild(itemsWrap);
+
+  if(!g.required){
+    const clearLink = el('span','opt-clear','선택 해제');
+    clearLink.addEventListener('click', function(){
+      sel[g.id]=null;
+      afterChange();
+    });
+    wrap.appendChild(clearLink);
+  }
+  return wrap;
+}
+
+/* 조건 미충족으로 인한 선택 자동 초기화 처리 */
+function reconcileDisabledSelections(){
+  const type = getType(currentTypeKey);
+  const sel = activeSel();
+  let cleared = [];
+  type.groups.forEach(function(g){
+    if(g.visibleIf && !g.visibleIf(sel)){
+      if(sel[g.id]){
+        const item = findItem(g, sel[g.id]);
+        sel[g.id]=null;
+        if(item) cleared.push(g.sub+' > '+item.label.split(' [')[0]);
+      }
+      return;
+    }
+    const chosenId = sel[g.id];
+    if(!chosenId) return;
+    const item = findItem(g,chosenId);
+    if(item && item.disabledIf && item.disabledIf(sel)){
+      sel[g.id]=null;
+      cleared.push(g.sub+' > '+item.label.split(' [')[0]);
+    }
+  });
+  return cleared;
+}
+
+function afterChange(){
+  let cleared=[];
+  for(let i=0;i<3;i++){
+    const c = reconcileDisabledSelections();
+    if(c.length===0) break;
+    cleared = cleared.concat(c);
+  }
+  renderGroups();
+  recompute();
+  if(cleared.length){
+    showToast('조건 미충족으로 선택이 초기화되었습니다: '+cleared[0]+(cleared.length>1?' 외 '+(cleared.length-1)+'건':''));
+  }
+}
+
+/* =========================================================
+   합계 계산 & 요약 렌더
+========================================================= */
+function computeTotals(selOverride){
+  const type = getType(currentTypeKey);
+  const sel = selOverride || activeSel();
+  let optTotal=0, optDeposit=0;
+  const list=[];
+  type.groups.forEach(function(g){
+    if(g.visibleIf && !g.visibleIf(sel)) return;
+    const chosenId = sel[g.id];
+    if(!chosenId) return;
+    const item = findItem(g,chosenId);
+    if(!item) return;
+    const pricing = effectivePrice(item, sel);
+    optTotal += pricing.price;
+    optDeposit += pricing.deposit;
+    if(pricing.price>0){
+      list.push({name:g.sub+' — '+item.label.split(' [')[0], price:pricing.price, deposit:pricing.deposit});
+    }
+  });
+  const salePrice = parseNum(document.getElementById('salePrice').value);
+  const depositPct = parseNum(document.getElementById('depositPct').value);
+  const saleDeposit = Math.round(salePrice * (depositPct/100));
+  const totalSupply = salePrice + optTotal;
+  const totalDepositDue = saleDeposit + optDeposit;
+  return {optTotal,optDeposit,salePrice,depositPct,saleDeposit,totalSupply,totalDepositDue,list};
+}
+
+function renderSummary(){
+  const t = computeTotals();
+  const table = document.getElementById('sumTable');
+  table.innerHTML =
+    '<tr><td>총 분양가</td><td class="v">'+won(t.salePrice)+'</td></tr>'+
+    '<tr><td>분양대금 계약금(1차, '+(t.depositPct||0)+'%)</td><td class="v">'+won(t.saleDeposit)+'</td></tr>'+
+    '<tr><td>선택 옵션 총액</td><td class="v">'+won(t.optTotal)+'</td></tr>'+
+    '<tr><td>선택 옵션 계약금 합계</td><td class="v">'+won(t.optDeposit)+'</td></tr>'+
+    '<tr class="total"><td>총 공급금액 (분양가+옵션)</td><td class="v">'+won(t.totalSupply)+'</td></tr>'+
+    '<tr class="total2"><td>지금 납부할 계약금 합계</td><td class="v">'+won(t.totalDepositDue)+'</td></tr>';
+
+  const listWrap = document.getElementById('selectedList');
+  if(t.list.length===0){
+    listWrap.innerHTML = '<div class="empty">아직 선택한 유상 옵션이 없습니다.</div>';
+  } else {
+    listWrap.innerHTML='';
+    t.list.forEach(function(it){
+      const row = el('div','si');
+      row.innerHTML = '<span class="n">'+it.name+'</span><span class="p">'+won(it.price)+'</span>';
+      listWrap.appendChild(row);
+    });
+  }
+
+  const titleEl = document.getElementById('summaryTitle');
+  titleEl.textContent = (penaltyMode && editingBefore) ? '실시간 계약 요약 (변경 전 입력중)' : '실시간 계약 요약';
+
+  renderPenaltyPanel();
+}
+
+/* =========================================================
+   위약금 계산 (옵션 변경)
+========================================================= */
+function computePenaltyInfo(){
+  const beforeT = computeTotals(beforeState[currentTypeKey]);
+  const afterT = computeTotals(state[currentTypeKey]);
+  const before = beforeT.totalSupply;
+  const after = afterT.totalSupply;
+  const diff = after - before;
+  let penalty = 0, note='', cls='';
+  if(before > after){
+    penalty = 0;
+    note = '변경 전 총공급금액이 변경 후보다 많아 위약금이 발생하지 않습니다.';
+    cls = 'penalty-none';
+  } else if(before < after){
+    penalty = Math.round(diff * 0.10);
+    note = '변경 후 총공급금액이 변경 전보다 많아, 차액의 10%가 위약금으로 발생합니다.';
+    cls = 'penalty-row';
+  } else {
+    penalty = 0;
+    note = '변경 전·후 총공급금액이 동일하여 위약금이 발생하지 않습니다.';
+    cls = 'penalty-none';
+  }
+  return {before, after, diff, penalty, note, cls};
+}
+
+function renderEditModeBar(){
+  const bar = document.getElementById('editModeBar');
+  if(penaltyMode){
+    bar.className='show';
+    bar.textContent = editingBefore
+      ? '지금은 \'변경 전(원래 계약)\' 옵션을 입력하고 있습니다. 변경 후 옵션은 사이드바의 \'변경 후(현재) 입력\' 버튼으로 전환하세요.'
+      : '지금은 \'변경 후(현재)\' 옵션을 입력하고 있습니다. 원래 계약 내용은 사이드바의 \'변경 전(원래) 입력\' 버튼으로 입력하세요.';
+  } else {
+    bar.className='';
+    bar.textContent='';
+  }
+}
+
+function renderPenaltyPanel(){
+  const table = document.getElementById('penaltyTable');
+  if(!penaltyMode){ table.innerHTML=''; return; }
+  const p = computePenaltyInfo();
+  table.innerHTML =
+    '<tr><td>변경 전 총공급금액</td><td class="v">'+won(p.before)+'</td></tr>'+
+    '<tr><td>변경 후 총공급금액</td><td class="v">'+won(p.after)+'</td></tr>'+
+    '<tr><td>차액(변경후-변경전)</td><td class="v">'+won(p.diff)+'</td></tr>'+
+    '<tr class="'+p.cls+'"><td>위약금(차액의 10%)</td><td class="v">'+won(p.penalty)+'</td></tr>'+
+    '<tr><td colspan="2" class="note">※ '+p.note+'</td></tr>';
+}
+
+function recompute(){
+  renderSummary();
+}
+
+/* =========================================================
+   유효성 검사 (필수 항목 확인)
+========================================================= */
+function validateSelections(){
+  const type = getType(currentTypeKey);
+  const sel = activeSel();
+  const missing = [];
+  document.querySelectorAll('.group').forEach(function(g){ g.classList.remove('invalid'); });
+  type.groups.forEach(function(g){
+    if(g.visibleIf && !g.visibleIf(sel)) return;
+    if(g.required && !sel[g.id]){
+      missing.push(g);
+      const domEl = document.getElementById('group_'+g.id);
+      if(domEl) domEl.classList.add('invalid');
+    }
+  });
+  const banner = document.getElementById('errorBanner');
+  if(missing.length===0){
+    banner.classList.remove('show');
+    banner.innerHTML='';
+    return true;
+  }
+  banner.classList.add('show');
+  let html = '<h3>⚠ 아직 선택하지 않은 필수 항목이 '+missing.length+'건 있습니다</h3><ul>';
+  missing.forEach(function(g){
+    html += '<li data-target="group_'+g.id+'">'+g.section+' &gt; '+g.sub+'</li>';
+  });
+  html += '</ul>';
+  banner.innerHTML = html;
+  banner.querySelectorAll('li').forEach(function(li){
+    li.addEventListener('click', function(){
+      const target = document.getElementById(li.getAttribute('data-target'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+      }
+    });
+  });
+  return false;
+}
+
+document.getElementById('btnCheck').addEventListener('click', function(){
+  const ok = validateSelections();
+  if(ok){
+    showToast('모든 필수 항목이 선택되었습니다. 인쇄를 진행하셔도 좋습니다.');
+  } else {
+    document.getElementById('errorBanner').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+
+document.getElementById('btnReset').addEventListener('click', function(){
+  const which = (penaltyMode && editingBefore) ? '변경 전' : '변경 후(현재)';
+  if(!confirm('현재 주택형의 \''+which+'\' 선택 내용을 초기화합니다. 계속하시겠습니까?')) return;
+  const type = getType(currentTypeKey);
+  const sel = activeSel();
+  type.groups.forEach(function(g){ sel[g.id]=null; });
+  if(!(penaltyMode && editingBefore)){
+    document.getElementById('salePrice').value='';
+    document.getElementById('depositPct').value='';
+  }
+  document.getElementById('errorBanner').classList.remove('show');
+  renderGroups();
+  recompute();
+  showToast('선택 내용이 초기화되었습니다.');
+});
+
+/* =========================================================
+   위약금 계산 사용 / 변경 전·후 입력 전환
+========================================================= */
+document.getElementById('penaltyEnable').addEventListener('change', function(e){
+  penaltyMode = e.target.checked;
+  document.getElementById('penaltyBody').style.display = penaltyMode ? 'block' : 'none';
+  if(!penaltyMode){ editingBefore = false; }
+  updateEditSwitchButtons();
+  renderGroups();
+  recompute();
+});
+document.getElementById('btnEditAfter').addEventListener('click', function(){
+  editingBefore = false;
+  updateEditSwitchButtons();
+  renderGroups();
+  recompute();
+});
+document.getElementById('btnEditBefore').addEventListener('click', function(){
+  editingBefore = true;
+  updateEditSwitchButtons();
+  renderGroups();
+  recompute();
+});
+function updateEditSwitchButtons(){
+  document.getElementById('btnEditAfter').classList.toggle('active', !editingBefore);
+  document.getElementById('btnEditBefore').classList.toggle('active', editingBefore);
+}
+updateEditSwitchButtons();
+
+/* =========================================================
+   인쇄
+========================================================= */
+document.getElementById('btnPrint').addEventListener('click', function(){
+  buildPrintArea();
+  window.print();
+});
+
+function escapeHtml(s){
+  return String(s==null?'':s).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});
+}
+
+function printRowClass(item, isSel){
+  let cls = isSel ? 'row-sel ' : '';
+  if(item.orig) cls += 'row-promo';
+  else if(item.price>0) cls += 'row-paid';
+  else cls += 'row-free';
+  return cls.trim();
+}
+
+function printPriceCell(item, sel){
+  const pricing = effectivePrice(item, sel);
+  if(item.orig){
+    return '<span class="orig">'+won(item.orig)+'</span><br><span class="promo-tag">무상(한시적)</span>';
+  }
+  if(pricing.dynamicFree){
+    return '<span class="orig">'+won(item.price)+'</span><br><span class="promo-tag">무상(조건부)</span>';
+  }
+  if(pricing.price===0) return '포함(무상)';
+  return won(pricing.price);
+}
+function printDepositCell(item, sel){
+  const pricing = effectivePrice(item, sel);
+  if(item.orig || pricing.dynamicFree) return '무상(한시적)';
+  if(pricing.deposit===0) return '-';
+  return won(pricing.deposit);
+}
+
+/* 원본 계약신청서 옵션표(구분/세부항목/선택내용/체크/총금액/계약금...) 양식을 그대로 재현한 표 생성 */
+function buildCategoryTable(sel, catName, groups){
+  const visibleGroups = groups.filter(function(g){ return !g.visibleIf || g.visibleIf(sel); });
+  if(visibleGroups.length===0) return '';
+  let totalRows=0;
+  visibleGroups.forEach(function(g){ totalRows += g.items.length; });
+
+  let html = '<div class="sectitle">'+escapeHtml(catName)+'</div>';
+  html += '<table class="opttbl"><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"><col class="c7"><col class="c8"></colgroup>';
+  html += '<thead><tr><th>구분</th><th>세부항목</th><th>선택내용</th><th>체크</th><th>총 금액</th><th class="dep">계약금</th><th>입금일</th><th>입금확인</th></tr></thead><tbody>';
+
+  let firstRowOfTable = true;
+  visibleGroups.forEach(function(g){
+    const chosenId = sel[g.id];
+    g.items.forEach(function(item, ii){
+      const isSel = chosenId===item.id;
+      html += '<tr class="'+printRowClass(item,isSel)+'">';
+      if(firstRowOfTable){
+        html += '<td rowspan="'+totalRows+'" class="ctr">'+escapeHtml(catName)+'</td>';
+        firstRowOfTable = false;
+      }
+      if(ii===0){
+        html += '<td rowspan="'+g.items.length+'" class="ctr">'+escapeHtml(g.sub)+'</td>';
+      }
+      html += '<td class="name">'+escapeHtml(item.label)+'</td>';
+      html += '<td class="ctr">'+(isSel?'☑':'☐')+'</td>';
+      html += '<td class="r">'+printPriceCell(item,sel)+'</td>';
+      html += '<td class="r">'+printDepositCell(item,sel)+'</td>';
+      html += '<td></td><td></td>';
+      html += '</tr>';
+    });
+  });
+  html += '</tbody></table>';
+  return html;
+}
+
+function buildPrintArea(){
+  const type = getType(currentTypeKey);
+  const sel = state[currentTypeKey];
+  const t = computeTotals(state[currentTypeKey]);
+  const now = new Date();
+  const dateStr = now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
+
+  let html = '';
+  html += '<div class="doc-head">';
+  html += '<div class="tableno"><div>테이블 번호</div><div>'+escapeHtml(custInfo.table||'&nbsp;')+'</div></div>';
+  html += '<h1>인천영종국제도시 디에트르 라 메르Ⅰ(RC4-1,2BL) 옵션 선택 확인서</h1>';
+  html += '<table class="infogrid">';
+  html += '<tr><td class="k">목적물</td><td class="v" colspan="3">인천광역시 중구 영종국제도시 RC4-1,2BL 디에트르 라 메르Ⅰ 아파트</td></tr>';
+  html += '<tr><td class="k">주택형</td><td class="v">'+escapeHtml(type.name)+'</td><td class="k">동 / 호</td><td class="v">'+escapeHtml(custInfo.dong||'____')+'동 '+escapeHtml(custInfo.ho||'____')+'호</td></tr>';
+  html += '<tr><td class="k">성명</td><td class="v">'+escapeHtml(custInfo.name||'')+' (인)</td><td class="k">출력일자</td><td class="v">'+dateStr+'</td></tr>';
+  html += '</table>';
+  html += '<div class="unit-note">(단위: 원, VAT 포함)</div>';
+  html += '</div>';
+
+  html += '<div class="legend">'
+    + '<span><i style="background:#fff9c4"></i> 한시적 무상 제공</span>'
+    + '<span><i style="background:#dbeeff"></i> 유상 옵션</span>'
+    + '<span><i style="background:#fff"></i> 기본 제공(무상)</span>'
+    + '<span style="color:#1a8a53;font-weight:700;">☑ = 고객 선택 항목</span>'
+    + '</div>';
+
+  const order = categoryOrder(currentTypeKey);
+  const byCat = {};
+  order.forEach(function(c){ byCat[c]=[]; });
+  type.groups.forEach(function(g){
+    if(!byCat[g.section]) byCat[g.section]=[];
+    byCat[g.section].push(g);
+  });
+  order.forEach(function(cat){
+    html += buildCategoryTable(sel, cat, byCat[cat]||[]);
+  });
+
+  html += '<div class="totals-wrap"><table class="totals">';
+  html += '<tr><td class="k">총 분양가</td><td class="r">'+won(t.salePrice)+'</td></tr>';
+  html += '<tr><td class="k">분양대금 계약금(1차, '+(t.depositPct||0)+'%)</td><td class="r">'+won(t.saleDeposit)+'</td></tr>';
+  html += '<tr><td class="k">선택 옵션 총액</td><td class="r">'+won(t.optTotal)+'</td></tr>';
+  html += '<tr><td class="k">선택 옵션 계약금 합계</td><td class="r">'+won(t.optDeposit)+'</td></tr>';
+  html += '<tr class="grand"><td>총 공급금액</td><td class="r">'+won(t.totalSupply)+'</td></tr>';
+  html += '<tr class="grand"><td>지금 납부할 계약금 합계</td><td class="r">'+won(t.totalDepositDue)+'</td></tr>';
+  html += '</table></div>';
+
+  if(penaltyMode){
+    const p = computePenaltyInfo();
+    html += '<div class="sectitle">옵션 변경 위약금</div>';
+    html += '<div class="totals-wrap"><table class="totals">';
+    html += '<tr><td class="k">변경 전 총공급금액</td><td class="r">'+won(p.before)+'</td></tr>';
+    html += '<tr><td class="k">변경 후 총공급금액</td><td class="r">'+won(p.after)+'</td></tr>';
+    html += '<tr><td class="k">차액(변경후-변경전)</td><td class="r">'+won(p.diff)+'</td></tr>';
+    html += '<tr class="grand"><td>위약금(차액의 10%)</td><td class="r">'+won(p.penalty)+'</td></tr>';
+    html += '</table></div>';
+    html += '<div class="foot-note">※ '+escapeHtml(p.note)+'</div>';
+  }
+
+  html += '<div class="sign">'
+    + '<div>계약자: '+escapeHtml(custInfo.name||'')+' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명 또는 날인)</div>'
+    + '<div>공동명의자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(서명 또는 날인)</div>'
+    + '</div>';
+  html += '<div class="foot-note">※ 본 확인서는 &#39;★대방건설_인천영종1차_구비서류_최종&#39; 계약신청서(p.1~36)를 기반으로 생성된 보조 서류입니다. 실제 계약 체결 시 원본 계약신청서 및 확정 금액과 대조하여 확인하시기 바랍니다.</div>';
+
+  document.getElementById('printArea').innerHTML = html;
+}
+
+/* =========================================================
+   초기화
+========================================================= */
+['custName','custDong','custHo','custTable'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', function(e){
+    const key = id.replace('cust','').toLowerCase();
+    const map={name:'name',dong:'dong',ho:'ho',table:'table'};
+    custInfo[map[key]] = e.target.value;
+  });
+});
+fmtInputNumber(document.getElementById('salePrice'));
+document.getElementById('depositPct').addEventListener('input', recompute);
+
+renderTabs();
+renderGroups();
+recompute();
+</script>
+</body>
+</html>
