@@ -796,15 +796,15 @@ function computePenaltyInfo(){
   const afterT = computeTotals(state[currentTypeKey]);
   const before = beforeT.totalSupply;
   const after = afterT.totalSupply;
-  const diff = after - before;
+  const diff = before - after;
   let penalty = 0, note='', cls='';
-  if(before > after){
+  if(after > before){
     penalty = 0;
-    note = '변경 전 총공급금액이 변경 후보다 많아 위약금이 발생하지 않습니다.';
+    note = '변경 후 총공급금액이 변경 전보다 많아(옵션 금액 증가) 위약금이 발생하지 않습니다.';
     cls = 'penalty-none';
-  } else if(before < after){
+  } else if(after < before){
     penalty = Math.round(diff * 0.10);
-    note = '변경 후 총공급금액이 변경 전보다 많아, 차액의 10%가 위약금으로 발생합니다.';
+    note = '변경 후 총공급금액이 변경 전보다 적어(옵션 금액 감소) 차액의 10%가 위약금으로 발생합니다.';
     cls = 'penalty-row';
   } else {
     penalty = 0;
