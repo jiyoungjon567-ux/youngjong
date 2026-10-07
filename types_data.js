@@ -50,10 +50,10 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 5곳)",250000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2890000,200000),
-      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000),
-      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000),
-      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5060000,500000)
+      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2890000,200000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}}),
+      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5060000,500000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_3";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤(DARK)",1220000),
@@ -61,10 +61,10 @@ const TYPES = [
       I("kit_top_3","주방벽, 상판 세라믹 타일",1970000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000),
-      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000),
-      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}}),
+      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_3";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("alpha_door","알파룸1","중문",[
       P("alpha_door_1","알파룸 중문(3연동 슬라이딩 도어)",1150000)
@@ -175,10 +175,10 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 5곳)",250000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2890000,200000),
-      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000),
-      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000),
-      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5060000,500000)
+      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2890000,200000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4050000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}}),
+      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5060000,500000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_3";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤(DARK)",1220000),
@@ -186,10 +186,10 @@ const TYPES = [
       I("kit_top_3","주방벽, 상판 세라믹 타일",1970000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000),
-      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000),
-      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}}),
+      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_3";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("alpha_door","알파룸1","중문",[
       P("alpha_door_1","알파룸 중문(3연동 슬라이딩 도어)",1150000)
@@ -284,10 +284,10 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 3곳)",180000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2800000,200000),
-      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4760000,400000)
+      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2800000,200000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}}),
+      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4760000,400000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_3";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤(DARK)",1130000),
@@ -295,10 +295,10 @@ const TYPES = [
       I("kit_top_3","주방벽, 상판 세라믹 타일",1880000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000),
-      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000),
-      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}}),
+      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_3";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("dress_choice","침실드레스룸","가구(택1)",[
       P("dress_choice_1","파우더장 + 드레스룸(포스트형) + 가구도어",3320000),
@@ -397,10 +397,10 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 3곳)",180000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2800000,200000),
-      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4760000,400000)
+      I("kit_design_1","[주방벽,상판MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",2800000,200000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽,상판 엔지니어드 스톤 DARK] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽,상판 엔지니어드 스톤 LIGHT] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}}),
+      I("kit_design_4","[주방벽,상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4760000,400000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_3";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤(DARK)",1130000),
@@ -408,10 +408,10 @@ const TYPES = [
       I("kit_top_3","주방벽, 상판 세라믹 타일",1880000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000),
-      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000),
-      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판 DARK)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(DARK) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(엔지니어드 스톤 상판 LIGHT)",800000,100000,{reason:"주방(상판 등) 엔지니어드 스톤(LIGHT) 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}}),
+      I("bal2_4","하부장 설치(세라믹 상판)",940000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_3";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("dress_choice","침실드레스룸","가구(택1)",[
       P("dress_choice_1","파우더장 + 드레스룸(포스트형) + 가구도어",3320000),
@@ -545,9 +545,9 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 6곳)",290000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000),
-      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000,{reason:"주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("bed_well","침실(우물천장)","우물천장",[
       I("bed_well_1","우물천장 + 우물천장 간접조명",570000,100000)
@@ -573,9 +573,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1640000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3600000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4380000,400000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",6910000,600000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3600000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4380000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",6910000,600000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1110000),
@@ -595,30 +595,30 @@ const TYPES = [
       I("kit_ext_1","확장형 주방",1530000,100000)
     ],{required:false}),
     G("kit_ext_design","주방(확장형)","상판/수전/후드",[
-      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3950000,300000),
-      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4880000,400000),
-      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7890000,700000)
+      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3950000,300000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_ext_top"];}}),
+      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4880000,400000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7890000,700000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("kit_ext_top","주방(상판 등 확장형)","상판",[
       P("kit_ext_top_1","주방벽, 상판 엔지니어드 스톤",1300000),
       I("kit_ext_top_2","주방벽, 상판 세라믹 타일",3730000,300000)
     ],{required:false,visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_ext","※ 주방(냉장고+냉장고장)","확장형 냉장고장(상판별)",[
-      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000),
-      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000),
-      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000),
-      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000),
-      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000),
-      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000),
-      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000),
-      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000),
-      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000),
-      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000),
-      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000),
-      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000),
-      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000),
-      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000),
-      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000)
+      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 주방(상판 등)과 동일한 상판으로 가능 - 소물장 시공",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_bi_ext","※ 주방(확장형)","B/I 콤비냉장고",[
       I("fridge_bi_ext_1","B/I 콤비냉장고(삼성)",860000,100000)
@@ -721,9 +721,9 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 6곳)",290000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000),
-      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000,{reason:"주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("bed_well","침실(우물천장)","우물천장",[
       I("bed_well_1","우물천장 + 우물천장 간접조명",570000,100000)
@@ -749,9 +749,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1640000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3600000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4380000,400000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",6910000,600000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3600000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4380000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",6910000,600000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1110000),
@@ -771,30 +771,30 @@ const TYPES = [
       I("kit_ext_1","확장형 주방",1530000,100000)
     ],{required:false}),
     G("kit_ext_design","주방(확장형)","상판/수전/후드",[
-      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3950000,300000),
-      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4880000,400000),
-      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7890000,700000)
+      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3950000,300000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_ext_top"];}}),
+      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4880000,400000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7890000,700000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("kit_ext_top","주방(상판 등 확장형)","상판",[
       P("kit_ext_top_1","주방벽, 상판 엔지니어드 스톤",1300000),
       I("kit_ext_top_2","주방벽, 상판 세라믹 타일",3730000,300000)
     ],{required:false,visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_ext","※ 주방(냉장고+냉장고장)","확장형 냉장고장(상판별)",[
-      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000),
-      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000),
-      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000),
-      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000),
-      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000),
-      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000),
-      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000),
-      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000),
-      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000),
-      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000),
-      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000),
-      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000),
-      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000),
-      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000),
-      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000)
+      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 주방(상판 등)과 동일한 상판으로 가능 - 소물장 시공",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_bi_ext","※ 주방(확장형)","B/I 콤비냉장고",[
       I("fridge_bi_ext_1","B/I 콤비냉장고(삼성)",860000,100000)
@@ -888,9 +888,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1680000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3630000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5030000,500000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7220000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3630000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5030000,500000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7220000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1080000),
@@ -996,9 +996,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1680000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3630000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5030000,500000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7220000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3630000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5030000,500000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7220000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1080000),
@@ -1113,9 +1113,9 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 6곳)",290000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000),
-      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000,{reason:"주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("bed_well","침실(우물천장)","우물천장",[
       I("bed_well_1","우물천장 + 우물천장 간접조명",570000,100000)
@@ -1141,9 +1141,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1640000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3760000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4530000,400000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7100000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3760000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4530000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7100000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1110000),
@@ -1163,30 +1163,30 @@ const TYPES = [
       I("kit_ext_1","확장형 주방",1750000,100000)
     ],{required:false}),
     G("kit_ext_design","주방(확장형)","상판/수전/후드",[
-      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4120000,400000),
-      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5070000,500000),
-      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",8180000,800000)
+      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4120000,400000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_ext_top"];}}),
+      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5070000,500000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",8180000,800000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("kit_ext_top","주방(상판 등 확장형)","상판",[
       P("kit_ext_top_1","주방벽, 상판 엔지니어드 스톤",1380000),
       I("kit_ext_top_2","주방벽, 상판 세라믹 타일",3860000,300000)
     ],{required:false,visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_ext","※ 주방(냉장고+냉장고장)","확장형 냉장고장(상판별)",[
-      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000),
-      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000),
-      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000),
-      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000),
-      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000),
-      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000),
-      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000),
-      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000),
-      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000),
-      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000),
-      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000),
-      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000),
-      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000),
-      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000),
-      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000)
+      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 주방(상판 등)과 동일한 상판으로 가능 - 소물장 시공",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_bi_ext","※ 주방(확장형)","B/I 콤비냉장고",[
       I("fridge_bi_ext_1","B/I 콤비냉장고(삼성)",860000,100000)
@@ -1289,9 +1289,9 @@ const TYPES = [
       I("bed_light_1","고급 침실등(총 6곳)",290000,100000)
     ],{required:false}),
     G("bal2","※ 발코니2","하부장",[
-      I("bal2_1","하부장 설치(MMA 상판)",740000,100000),
-      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000),
-      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000)
+      I("bal2_1","하부장 설치(MMA 상판)",740000,100000,{reason:"주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_top"];}}),
+      I("bal2_2","하부장 설치(엔지니어드 스톤 상판)",860000,100000,{reason:"주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_1";}}),
+      I("bal2_3","하부장 설치(세라믹 상판)",1210000,100000,{reason:"주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_top"]!=="kit_top_2";}})
     ],{required:false,note:"선택조건 : [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("bed_well","침실(우물천장)","우물천장",[
       I("bed_well_1","우물천장 + 우물천장 간접조명",570000,100000)
@@ -1317,9 +1317,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1640000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3760000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4530000,400000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7100000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3760000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4530000,400000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7100000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",1110000),
@@ -1339,30 +1339,30 @@ const TYPES = [
       I("kit_ext_1","확장형 주방",1750000,100000)
     ],{required:false}),
     G("kit_ext_design","주방(확장형)","상판/수전/후드",[
-      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4120000,400000),
-      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5070000,500000),
-      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",8180000,800000)
+      I("kit_ext_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",4120000,400000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_ext_top"];}}),
+      I("kit_ext_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5070000,500000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("kit_ext_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",8180000,800000,{reason:"인덕션 선택 + 주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("kit_ext_top","주방(상판 등 확장형)","상판",[
       P("kit_ext_top_1","주방벽, 상판 엔지니어드 스톤",1380000),
       I("kit_ext_top_2","주방벽, 상판 세라믹 타일",3860000,300000)
     ],{required:false,visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_ext","※ 주방(냉장고+냉장고장)","확장형 냉장고장(상판별)",[
-      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000),
-      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000),
-      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000),
-      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000),
-      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000),
-      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000),
-      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000),
-      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000),
-      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000),
-      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000),
-      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000),
-      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000),
-      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000),
-      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000),
-      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000)
+      I("fridge_ext_1","[MMA 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3160000,300000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_2","[엔지니어드스톤 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3300000,300000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_3","[세라믹 상판] 냉장고장 설치(도어이설치)+측면장+소물장",3440000,300000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_4","[MMA 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",7830000,700000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_5","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8170000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_6","[세라믹 상판] 컨버터블 냉장고 패키지(삼성)+냉장고장+키큰장+측면오픈장+소물장",8510000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_7","[MMA 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8080000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_8","[엔지니어드스톤 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8430000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_9","[세라믹 상판] 컨버터블 냉장고 패키지(LG)+냉장고장+키큰장+측면오픈장+소물장",8780000,800000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_10","[MMA 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8280000,800000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_11","[엔지니어드스톤 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",8640000,800000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_12","[세라믹 상판] 비스포크 : 4도어 냉장고(삼성)+냉장고장+키큰장+측면오픈장+소물장",9000000,900000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}}),
+      I("fridge_ext_13","[MMA 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9230000,900000,{reason:"주방(상판 등 확장형) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !!sel["kit_ext_top"];}}),
+      I("fridge_ext_14","[엔지니어드스톤 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",9630000,900000,{reason:"주방(상판 등 확장형) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_1";}}),
+      I("fridge_ext_15","[세라믹 상판] 오브제 : 4도어 냉장고(LG)+냉장고장+키큰장+측면오픈장+소물장",10030000,1000000,{reason:"주방(상판 등 확장형) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return sel["kit_ext_top"]!=="kit_ext_top_2";}})
     ],{required:false,note:"선택조건 : 주방(상판 등)과 동일한 상판으로 가능 - 소물장 시공",visibleIf:function(sel){return sel["kit_ext"]==="kit_ext_1";}}),
     G("fridge_bi_ext","※ 주방(확장형)","B/I 콤비냉장고",[
       I("fridge_bi_ext_1","B/I 콤비냉장고(삼성)",860000,100000)
@@ -1456,9 +1456,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1680000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5480000,500000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7770000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5480000,500000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7770000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",2300000),
@@ -1564,9 +1564,9 @@ const TYPES = [
       I("bath_cpl_up_1","대형타일 디자인 + 수전/악세서리/세면대/욕실장 간접조명/샤워부스 업그레이드",1680000,100000)
     ],{required:false}),
     G("kit_design","주방(특화)","상판/수전/후드",[
-      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000),
-      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5480000,500000),
-      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7770000,700000)
+      I("kit_design_1","[주방벽, 상판 MMA] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",3870000,300000,{reason:"인덕션 선택 + 주방(상판 등) 미선택(MMA 기본) 상태에서만 가능",disabledIf:function(sel){return !sel["cooktop"]||!!sel["kit_top"];}}),
+      I("kit_design_2","[주방벽, 상판 엔지니어드 스톤] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",5480000,500000,{reason:"인덕션 선택 + 주방(상판 등) 엔지니어드 스톤 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_1";}}),
+      I("kit_design_3","[주방벽, 상판 세라믹 타일] 상부 유리도어+독립형후드(2EA)+고급싱크볼+무선충전기+주방고급식탁등+주방고급라인조명",7770000,700000,{reason:"인덕션 선택 + 주방(상판 등) 세라믹 타일 선택 시 가능",disabledIf:function(sel){return !sel["cooktop"]||sel["kit_top"]!=="kit_top_2";}})
     ],{required:true,note:"선택조건 : 인덕션 선택 시 계약 가능하며, [주방(상판 등)]과 동일한 상판으로 가능"}),
     G("kit_top","주방(상판 등)","상판",[
       P("kit_top_1","주방벽, 상판 엔지니어드 스톤",2300000),
