@@ -834,7 +834,7 @@ function renderPenaltyPanel(){
   table.innerHTML =
     '<tr><td>변경 전 총공급금액</td><td class="v">'+won(p.before)+'</td></tr>'+
     '<tr><td>변경 후 총공급금액</td><td class="v">'+won(p.after)+'</td></tr>'+
-    '<tr><td>차액(변경후-변경전)</td><td class="v">'+won(p.diff)+'</td></tr>'+
+    '<tr><td>차액(변경전-변경후)</td><td class="v">'+won(p.diff)+'</td></tr>'+
     '<tr class="'+p.cls+'"><td>위약금(차액의 10%)</td><td class="v">'+won(p.penalty)+'</td></tr>'+
     '<tr><td colspan="2" class="note">※ '+p.note+'</td></tr>';
 }
@@ -1063,7 +1063,7 @@ function buildPrintArea(){
     html += '<div class="totals-wrap"><table class="totals">';
     html += '<tr><td class="k">변경 전 총공급금액</td><td class="r">'+won(p.before)+'</td></tr>';
     html += '<tr><td class="k">변경 후 총공급금액</td><td class="r">'+won(p.after)+'</td></tr>';
-    html += '<tr><td class="k">차액(변경후-변경전)</td><td class="r">'+won(p.diff)+'</td></tr>';
+    html += '<tr><td class="k">차액(변경전-변경후)</td><td class="r">'+won(p.diff)+'</td></tr>';
     html += '<tr class="grand"><td>위약금(차액의 10%)</td><td class="r">'+won(p.penalty)+'</td></tr>';
     html += '</table></div>';
     html += '<div class="foot-note">※ '+escapeHtml(p.note)+'</div>';
